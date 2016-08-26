@@ -1,0 +1,100 @@
+body {
+  background-image: url("http://jmvtestsite.com/wp-content/uploads/2016/07/cityscape4.jpg");
+  font-family: 'Roboto';
+  background-size: 100%;
+  padding: 20px;
+}
+
+
+.displayCondition {
+  font-weight: bold;
+  display: block;
+  padding: 10px;
+  width: 25%;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  border: 3px solid purple;
+  border-radius: 15px;
+  font-family: 'Droid Serif', serif;
+  font-size: 14px;
+  background-color: antiquewhite;
+}
+
+#headerTitle {
+  padding: 20px;
+  color: darkslategray;
+  font-family: 'Droid Serif', serif;
+  font-weight: bold;
+  font-size: 36px;
+  text-align: center;
+}
+
+#rain {
+  text-align: center;
+}
+
+#snow {
+  text-align: center;
+}
+
+#weather_desc {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#weather_humidity {
+  text-align: center;
+}
+
+#weather_sunrise {
+  text-align: center;
+}
+
+#weather_sunset {
+  text-align: center;
+}
+
+#weather_tempNow {
+  text-align: center;
+}
+
+#weather_time {
+  text-align: center;
+}
+
+#weather_wind {
+  text-align: center;
+}
+
+
+/* Start by setting display:none to make this hidden.
+   Then we position it in relation to the viewport window
+   with position:fixed. Width, height, top and left speak
+   for themselves. Background we set to 80% white with
+   our animation centered, and no-repeating */
+.modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 )
+                url('http://i.stack.imgur.com/FhHRx.gif')
+                50% 50%
+                no-repeat;
+}
+
+/* When the body has the loading class, we turn
+   the scrollbar off with overflow:hidden */
+body.loading {
+    overflow: hidden;
+}
+
+/* Anytime the body has the loading class, our
+   modal element will be visible */
+body.loading .modal {
+    display: block;
+}
