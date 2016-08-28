@@ -100,19 +100,10 @@ $.ajax({
   $("#weather_sunset").text(displaySunset);
 
 
-
-
+// got NaN miles
+  // var visibilityMiles = Math.round(result.visibility * .00062);
+  // var displayVisibility = "visibility: " + visibilityMiles + " miles";
+  // $("#visibility").text(displayVisibility);
 
 }
 });
-
-
-// var date = result.date
-// var year = date.substr(0,4);
-// var monthDigit = date.substr(5,2);
-// var day = date.substr(8,2);
-// var monthNumber = parseInt(monthDigit,10);
-// var month = months[monthNumber];
-// console.log(day, monthDigit);
-// var dateString = month + " " + day + ", " + year;
-// $("#apod_date").text(dateString);
