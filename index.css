@@ -10,11 +10,11 @@ body {
 
 .displayCondition {
   font-weight: bold;
-  display: block;
+  display: none;
   padding: 10px;
   width: 25%;
   margin: 0 auto;
-  margin-bottom: 10px;
+  margin-top: 10px;
   border: 3px solid purple;
   border-radius: 15px;
   font-family: 'Droid Serif', serif;
@@ -32,12 +32,6 @@ body {
 }
 
 
-#instructions {
-  font-family: 'Droid Serif', serif;
-  padding-bottom: 10px;
-  text-align: center;
-}
-
 #high {
   font-size: 18px;
   text-align: center;
@@ -47,6 +41,15 @@ body {
   text-align: center;
   display: block;
   margin: 0 auto;
+}
+
+#instructions {
+  font-family: 'Arial';
+  font-size: 18px;
+  font-weight: bold;
+  display: block;
+  padding-bottom: 1px;
+  text-align: center;
 }
 
 #low {

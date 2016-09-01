@@ -45,6 +45,7 @@ function ampm(timestamp) {
 function locationButtonClick (){
   console.log ("button was clicked", $("#zip").val());
   getWeatherData($("#zip").val());
+  $(".displayCondition").show();
 }
 
 $("#btn").on("click",locationButtonClick);
@@ -72,7 +73,7 @@ $.ajax({
     $("#rain").text("Rain in the last hour: " + result.rain["1h"] + " inches");
   }
   if("snow" in result) {
-    $("#snow").text("Snow in the last 3 hours: " + result.snow["3h"]);
+    $("#snow").text("Snow in the last 3 hours: " + result.snow["1h"]);
   }
 
   var currentTemp = kelvinToFahrenheit(result.main.temp);
@@ -86,23 +87,23 @@ $.ajax({
   var displayHumidity = "Humidity " + result.main.humidity + "%";
   $("#weather_humidity").text(displayHumidity);
 
-  var onlyTime = unixToTime(result.dt);
-  var amOrPm = ampm(result.dt);
-  var displayTime = ""
-  if (amOrPm) {
-    displayTime =   "Current time: " + onlyTime + " a.m.";
-  } else {
-    displayTime =   "Current time: " + onlyTime + " p.m.";
-  }
-  $("#weather_time").text(displayTime);
-
-  var sunrise = unixToTime(result.sys.sunrise);
-  var displaySunrise = "Sunrise: " + sunrise + " a.m.";
-  $("#weather_sunrise").text(displaySunrise);
-
-  var sunset = unixToTime(result.sys.sunset);
-  var displaySunset = "Sunset: " + sunset + " p.m.";
-  $("#weather_sunset").text(displaySunset);
+  // var onlyTime = unixToTime(result.dt);
+  // var amOrPm = ampm(result.dt);
+  // var displayTime = ""
+  // if (amOrPm) {
+  //   displayTime =   "Current time: " + onlyTime + " a.m.";
+  // } else {
+  //   displayTime =   "Current time: " + onlyTime + " p.m.";
+  // }
+  // $("#weather_time").text(displayTime);
+  //
+  // var sunrise = unixToTime(result.sys.sunrise);
+  // var displaySunrise = "Sunrise: " + sunrise + " a.m.";
+  // $("#weather_sunrise").text(displaySunrise);
+  //
+  // var sunset = unixToTime(result.sys.sunset);
+  // var displaySunset = "Sunset: " + sunset + " p.m.";
+  // $("#weather_sunset").text(displaySunset);
 
   var highTemp = kelvinToFahrenheit(result.main.temp_max);
   var displayHigh = "High: " + highTemp + "&#176;F";
