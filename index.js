@@ -1,8 +1,3 @@
-// var url = "http://api.openweathermap.org/data/2.5/forecast/city?id=524901&APPID=2ab5a5b18737e945b5af9cae2e8e1ffe";
-var url = "http://api.openweathermap.org/data/2.5/weather?zip=55345,us&APPID=2ab5a5b18737e945b5af9cae2e8e1ffe";
-
-var months = ["placeholder", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
 // This gives a "loading" icon when data is loading
 $body = $("body");
 
@@ -47,38 +42,48 @@ function ampm(timestamp) {
 }
 
 /////////////
+function locationButtonClick (){
+  console.log ("button was clicked", $("#zip").val());
+  getWeatherData($("#zip").val());
+}
+
+$("#btn").on("click",locationButtonClick);
+
+function getWeatherData (zipCode){
+  var url = "http://api.openweathermap.org/data/2.5/weather?q=" + zipCode + "&APPID=2ab5a5b18737e945b5af9cae2e8e1ffe";
+
 $.ajax({
 
   url: url,
   success: function(result){
     console.log(result);
+
+  var cityName = result.name;
+  displayCityName = "for " + cityName;
+  $("#weather_place").text(displayCityName);
+
+  var cloudiness = result.weather[0].description + ", cloudiness: " + result.clouds.all +"%"
+  $("#weather_desc").text(cloudiness);
+
+  var iconUrl = 'http://openweathermap.org/img/w/'+result.weather[0].icon+'.png'
+  $("#weather_img_icon").attr("src", iconUrl);
+
   if("rain" in result) {
-    $("#rain").text("Rain in the last 3 hours: " + result.rain["3h"]);
+    $("#rain").text("Rain in the last hour: " + result.rain["1h"] + " inches");
   }
   if("snow" in result) {
     $("#snow").text("Snow in the last 3 hours: " + result.snow["3h"]);
   }
 
-  $("#weather_place").text(result.name);
-
-  var cloudiness = result.weather[0].description + ", cloudiness: " + result.clouds.all +"%"
-  $("#weather_desc").text(cloudiness);
-
-
-
-  var iconUrl = 'http://openweathermap.org/img/w/'+result.weather[0].icon+'.png'
-
-  $("#weather_img_icon").attr("src", iconUrl);
-
   var currentTemp = kelvinToFahrenheit(result.main.temp);
   var displayTemp = "Temperature " + currentTemp + "&#176;F";
   $("#weather_tempNow").html(displayTemp);
 
-  var windSpeed = mpsToMph(result.wind.speed)
+  var windSpeed = mpsToMph(result.wind.speed);
   var displayWindSpeed = "wind " + windSpeed + " mph";
   $("#weather_wind").text(displayWindSpeed);
 
-  var displayHumidity = "Humidity " + result.main.humidity + "%"
+  var displayHumidity = "Humidity " + result.main.humidity + "%";
   $("#weather_humidity").text(displayHumidity);
 
   var onlyTime = unixToTime(result.dt);
@@ -99,11 +104,14 @@ $.ajax({
   var displaySunset = "Sunset: " + sunset + " p.m.";
   $("#weather_sunset").text(displaySunset);
 
+  var highTemp = kelvinToFahrenheit(result.main.temp_max);
+  var displayHigh = "High: " + highTemp + "&#176;F";
+  $("#high").html(displayHigh);
 
-// got NaN miles
-  // var visibilityMiles = Math.round(result.visibility * .00062);
-  // var displayVisibility = "visibility: " + visibilityMiles + " miles";
-  // $("#visibility").text(displayVisibility);
+  var lowTemp= kelvinToFahrenheit(result.main.temp_min);
+  var displayLow = "Low: " + lowTemp + "&#176;F";
+  $("#low").html(displayLow);
 
 }
 });
+};
