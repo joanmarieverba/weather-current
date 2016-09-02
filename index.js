@@ -77,7 +77,7 @@ $.ajax({
   }
 
   var currentTemp = kelvinToFahrenheit(result.main.temp);
-  var displayTemp = "Temperature " + currentTemp + "&#176;F";
+  var displayTemp = currentTemp + "&#176;F";
   $("#weather_tempNow").html(displayTemp);
 
   var windSpeed = mpsToMph(result.wind.speed);
