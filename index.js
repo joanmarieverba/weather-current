@@ -69,11 +69,11 @@ $.ajax({
   var iconUrl = 'http://openweathermap.org/img/w/'+result.weather[0].icon+'.png'
   $("#weather_img_icon").attr("src", iconUrl);
 
-  if("rain" in result) {
+  if("rain" in result && !isNaN(result.rain["1h"])) {
     $("#rain").text("Rain in the last hour: " + result.rain["1h"] + " inches");
   }
-  if("snow" in result) {
-    $("#snow").text("Snow in the last 3 hours: " + result.snow["1h"]);
+  if("snow" in result && !isNaN(result.snow["1h"])) {
+    $("#snow").text("Snow in the last hour: " + result.snow["1h"]);
   }
 
   var currentTemp = kelvinToFahrenheit(result.main.temp);
@@ -105,14 +105,15 @@ $.ajax({
   // var displaySunset = "Sunset: " + sunset + " p.m.";
   // $("#weather_sunset").text(displaySunset);
 
-  var highTemp = kelvinToFahrenheit(result.main.temp_max);
-  var displayHigh = "High: " + highTemp + "&#176;F";
-  $("#high").html(displayHigh);
+  if (result.main.temp_max !== result.main.temp_min){
+    var highTemp = kelvinToFahrenheit(result.main.temp_max);
+    var displayHigh = "High: " + highTemp + "&#176;F";
+    $("#high").html(displayHigh);
 
-  var lowTemp= kelvinToFahrenheit(result.main.temp_min);
-  var displayLow = "Low: " + lowTemp + "&#176;F";
-  $("#low").html(displayLow);
-
+    var lowTemp= kelvinToFahrenheit(result.main.temp_min);
+    var displayLow = "Low: " + lowTemp + "&#176;F";
+    $("#low").html(displayLow);
+  }
 }
 });
 };
