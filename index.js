@@ -16,27 +16,27 @@ function mpsToMph(mps) {
 
 function unixToTime(timestamp) {
     // multiplied by 1000 so that the argument is in milliseconds, not seconds.
-    var date = new Date(timestamp*1000);
+    let date = new Date(timestamp*1000);
     // Hours part from the timestamp
-    var hours24 = date.getHours();
-    var hoursNumber = parseInt(hours24,10);
+    let hours24 = date.getHours();
+    let hoursNumber = parseInt(hours24,10);
     if (hoursNumber > 12) {hoursNumber = hoursNumber - 12;}
-    var hours12 = hoursNumber.toString();
+    let hours12 = hoursNumber.toString();
     // Minutes part from the timestamp
-    var minutes = "0" + date.getMinutes();
+    let minutes = "0" + date.getMinutes();
     // Seconds part from the timestamp
-    var seconds = "0" + date.getSeconds();
+    let seconds = "0" + date.getSeconds();
     // Will display time in 10:30:23 format
-    var formattedTime = hours12 + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+    let formattedTime = `${hours12}:${minutes.substr(-2)}:${seconds.substr(-2)}`;
     return formattedTime;
 }
 
 function ampm(timestamp) {
-  var am = true;
-  var date = new Date(timestamp*1000);
+  let am = true;
+  let date = new Date(timestamp*1000);
   // Hours part from the timestamp
-  var hours24 = date.getHours();
-  var hoursNumber = parseInt(hours24,10);
+  let hours24 = date.getHours();
+  let hoursNumber = parseInt(hours24,10);
   if (hoursNumber > 12) {am = false;}
   return am;
 }
@@ -51,7 +51,7 @@ function locationButtonClick (){
 $("#btn").on("click",locationButtonClick);
 
 function getWeatherData (zipCode){
-  var url = "http://api.openweathermap.org/data/2.5/weather?q=" + zipCode + "&APPID=2ab5a5b18737e945b5af9cae2e8e1ffe";
+  let url = "http://api.openweathermap.org/data/2.5/weather?q=" + zipCode + "&APPID=2ab5a5b18737e945b5af9cae2e8e1ffe";
 
 $.ajax({
 
@@ -59,32 +59,32 @@ $.ajax({
   success: function(result){
     console.log(result);
 
-  var cityName = result.name;
-  displayCityName = "for " + cityName;
+  let cityName = result.name;
+  displayCityName = `for ${cityName}`;
   $("#weather_place").text(displayCityName);
 
-  var cloudiness = result.weather[0].description + ", cloudiness: " + result.clouds.all +"%"
+  let cloudiness = `${result.weather[0].description}, cloudiness: ${result.clouds.all}%`
   $("#weather_desc").text(cloudiness);
 
-  var iconUrl = 'http://openweathermap.org/img/w/'+result.weather[0].icon+'.png'
+  let iconUrl = 'http://openweathermap.org/img/w/'+result.weather[0].icon+'.png'
   $("#weather_img_icon").attr("src", iconUrl);
 
   if("rain" in result && !isNaN(result.rain["1h"])) {
-    $("#rain").text("Rain in the last hour: " + result.rain["1h"] + " inches");
+    $("#rain").text(`Rain in the last hour: ${result.rain["1h"]} inches`);
   }
   if("snow" in result && !isNaN(result.snow["1h"])) {
-    $("#snow").text("Snow in the last hour: " + result.snow["1h"]);
+    $("#snow").text(`Snow in the last hour: ${result.snow["1h"]}`);
   }
 
-  var currentTemp = kelvinToFahrenheit(result.main.temp);
-  var displayTemp = currentTemp + "&#176;F";
+  let currentTemp = kelvinToFahrenheit(result.main.temp);
+  let displayTemp = `${currentTemp}&#176;F`;
   $("#weather_tempNow").html(displayTemp);
 
-  var windSpeed = mpsToMph(result.wind.speed);
-  var displayWindSpeed = "wind " + windSpeed + " mph";
+  let windSpeed = mpsToMph(result.wind.speed);
+  let displayWindSpeed = `wind ${windSpeed} mph`;
   $("#weather_wind").text(displayWindSpeed);
 
-  var displayHumidity = "Humidity " + result.main.humidity + "%";
+  var displayHumidity = `Humidity ${result.main.humidity}%`;
   $("#weather_humidity").text(displayHumidity);
 
   // var onlyTime = unixToTime(result.dt);
@@ -106,12 +106,12 @@ $.ajax({
   // $("#weather_sunset").text(displaySunset);
 
   if (result.main.temp_max !== result.main.temp_min){
-    var highTemp = kelvinToFahrenheit(result.main.temp_max);
-    var displayHigh = "High: " + highTemp + "&#176;F";
+    let highTemp = kelvinToFahrenheit(result.main.temp_max);
+    let displayHigh = `High: ${highTemp}&#176;F`;
     $("#high").html(displayHigh);
 
-    var lowTemp= kelvinToFahrenheit(result.main.temp_min);
-    var displayLow = "Low: " + lowTemp + "&#176;F";
+    let lowTemp= kelvinToFahrenheit(result.main.temp_min);
+    let displayLow = `Low: ${lowTemp}&#176;F`;
     $("#low").html(displayLow);
   }
 }
